@@ -27,7 +27,7 @@ var autoplay = document.getElementById('autoplayon')
 var myTimeout;
 function myTimer() {
   console.log("timer")
-  if(window.speechSynthesis.speaking && $('#play-button').attr('disabled')){
+  if($('.play-button').prop('disabled')){
     console.log("timer->1")
     window.speechSynthesis.pause();
     window.speechSynthesis.resume();

@@ -155,11 +155,11 @@ body {
 }
 
 .right[children="3"]{
-  grid-template-rows: 30px auto 60%;
+  grid-template-rows: 30px 40% auto;
 }
 
 .right[children="4"]{
-  grid-template-rows: 30px 30% auto 50%;
+  grid-template-rows: 30px 30% 15% auto;
 }
 
 /* .right[children="4"]{
@@ -257,6 +257,7 @@ button.clipboard {
   right:0px;
   z-index:100;
   background: var(--mainBG);
+  color: var(--fontColor);
   border:none;
   border-radius: 0;
 }
