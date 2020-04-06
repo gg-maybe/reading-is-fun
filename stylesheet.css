@@ -135,7 +135,8 @@ body {
   line-height: var(--rightLineHeight);
   /* align-content: stretch;
   flex-wrap: nowrap; */
-  display:grid;
+  display:flex;
+  flex-direction: column;
 
   grid-template-columns: 100%;
   grid-column-gap: 3px;
@@ -145,7 +146,7 @@ body {
 .nodisplay {
   display: None !important;
 }
-
+/*
 .right[children="1"]{
   grid-template-rows: 30px;
 }
@@ -160,7 +161,7 @@ body {
 
 .right[children="4"]{
   grid-template-rows: 30px 30% 15% auto;
-}
+} */
 
 /* .right[children="4"]{
   grid-template-columns: 50% 50%;
@@ -264,6 +265,14 @@ button.clipboard {
 button.clipboard:hover {
   background: var(--offContentBG);
 }
+#glossary {
+  max-height: 40%;
+}
+#gtranslation {
+  max-height:150px;
+  min-height: 50px;
+}
+
 #glossary-data{
 }
 #glossary-data>div {
