@@ -25,6 +25,10 @@ body{
   --rightLetterSpacing: 0em;
 
   color: var(--fontColor);
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body.darkmode{
@@ -39,10 +43,7 @@ body.darkmode{
   --fontColor: rgb(240, 240, 240);
   --titleColor: grey;
   --optionsOpacity: .1;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+
 
 }
 
