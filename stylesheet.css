@@ -79,10 +79,14 @@ html {
 }
 
 rt {
-  display: ruby-text;
+  display: block;
   opacity: .7;
 }
-
+@-moz-document url-prefix() {
+  rt {
+    display: ruby-text;
+  }
+}
 .hidden {
   opacity: 0 !important;
   height: 0px;
