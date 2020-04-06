@@ -21,29 +21,43 @@ var currentDid = null;
 var currentSid = null;
 var plsCancel= false;
 
+
 var autoplay = document.getElementById('autoplayon')
 
 var myTimeout;
 function myTimer() {
+  console.log("timer")
+  if(window.speechSynthesis.speaking && $('#play-button').attr('disabled')){
+    console.log("timer->1")
     window.speechSynthesis.pause();
     window.speechSynthesis.resume();
     clearTimeout(myTimeout);
     myTimeout = setTimeout(myTimer, 10000);
+  } else {
+    console.log("timer->2")
+    clearTimeout(myTimeout);
+  }
+
 }
 u.onend = function(event) {
+  console.log(u.text, 'ending')
   clearTimeout(myTimeout);
   if (plsCancel) {
     console.log('actually cancelling')
     plsCancel=false;
     return;
   }
-  speechSynthesis.cancel()
   if(autoplay.checked) {
+    console.log("autoplaying")
     playSpecificSpan(parseInt(speakDid)+1, null);
   } else {
     $('.speaking').removeClass('speaking');
   }
 
+}
+u.onstart = function(e){
+  console.log('starting');
+  plsCancel=false;
 }
 
 function playSpecificSpan(did, sid, $span) {
@@ -63,6 +77,8 @@ function playSpecificSpan(did, sid, $span) {
   speakSid = sid;
   if (!$span)
     $span = $(`p[did=${speakDid}] span[sid=${speakSid}]`);
+
+  console.log('hey')
   speak($span);
   highlightRestOfP($span);
   playPauseButtons(true);
@@ -102,29 +118,29 @@ function pause() {
 function stop() {
   plsCancel = true;
   clearTimeout(myTimeout);
+  console.log('stopping')
   speechSynthesis.cancel();
 }
 function start() {
+  clearTimeout(myTimeout);
   myTimeout = setTimeout(myTimer, 10000);
-  plsCancel= false;
   speechSynthesis.speak(u);
 }
 
 function speak(span) {
+  console.log(u.voice)
   if(!u.voice) {
-    u.voice = speechSynthesis.getVoices()[20]
+    u.voice = voices.currentVoice;
   }
 
   let start_txt = span.ignore('rt').text()
   if(autoplay.checked) {
     let txt = span.parent().ignore('rt').text()
-
-
     u.text = txt.substr(txt.indexOf(start_txt));
   } else {
     u.text = start_txt;
   }
-
+  console.log(u.text);
   speechSynthesis.speak(u);
   return u
 }
@@ -207,9 +223,8 @@ function setActive(did, sid, span, forceSpeak) {
   }
 
   if (forceSpeak) {
-    clearTimeout(myTimeout);
-    speechSynthesis.cancel()
-    playSpecificSpan(did, sid, $(span))
+    stop();
+    setTimeout(()=>{playSpecificSpan(did, sid, $(span))}, 300)
   }
 
   currentDid = did;
@@ -315,19 +330,19 @@ function toggleScroll() {
 
 
 // Alt -scroll temporarily disables sync. Buggy af.
-document.addEventListener("keydown", function(e) {
-  if (e.altKey) {
-    altScroll = true;
-  }
-});
+// document.addEventListener("keydown", function(e) {
+//   if (e.altKey) {
+//     altScroll = true;
+//   }
+// });
 
 
-document.addEventListener("keyup", function(e) {
-  if (e.key == 'Alt') {
-    altScroll = false;
-    syncCorrector = leftDiv.scrollTop/leftDiv.scrollHeight - rightDiv.scrollTop/rightDiv.scrollHeight;
-  }
-});
+// document.addEventListener("keyup", function(e) {
+//   if (e.key == 'Alt') {
+//     altScroll = false;
+//     syncCorrector = leftDiv.scrollTop/leftDiv.scrollHeight - rightDiv.scrollTop/rightDiv.scrollHeight;
+//   }
+// });
 
 $('.sync-scroll-button').click(toggleScroll)
 
