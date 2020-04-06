@@ -94,6 +94,7 @@ function playPauseButtons(playOn){
 }
 window.onbeforeunload = function() {
   plsCancel= true;
+  u.onend = ()=>{};
   clearTimeout(myTimeout);
   this.speechSynthesis.cancel();
 }
