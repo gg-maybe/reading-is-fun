@@ -193,7 +193,7 @@ function setGlossary(did, sid, end) {
 }
 
 function setTranslation(did) {
-  $('#translate-data').text(data[did]['en'])
+  $('#translate-data').html(data[did]['en'])
 }
 
 function setActiveSpan(span, forceSpeak) {
@@ -235,7 +235,7 @@ function setActive(did, sid, span, forceSpeak) {
 
 
 //function goNext(element)
-$('p[pid]').click(function(e){
+$('#lang p[pid]').click(function(e){
   if(e.target == this){
     $('.active').removeClass('active');
     $(this).addClass('active');
@@ -243,7 +243,7 @@ $('p[pid]').click(function(e){
     e.preventDefault();
   }
 })
-$('p[pid]').dblclick(function(e){
+$('#lang  p[pid]').dblclick(function(e){
   if(e.target == this){
     setActive($(this).attr('did'), null, null, true);
     e.preventDefault();
@@ -438,4 +438,12 @@ function copyText(){
 
   /* Copy the text inside the text field */
   document.execCommand("copy");
+}
+function search(){
+  var txt = $('.active').ignore('rt').text();
+  var url = `https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=0&wdqtm=2&wdqcham=2&wdqt=${txt}`
+  var win = window.open(url, 'pelb');
+
+  win.focus();
+
 }

@@ -248,29 +248,31 @@ div.f.coolscroll>div, div.f .coolscroll>div {
 .coolscroll>button {
   visibility: visible;
 }
-button.clipboard {
-  font-size: 10px;
-  padding:0;
-  height: 15px;
-  width: 15px;
-  position:absolute;
-  top:-1px;
-  right:0px;
-  z-index:100;
+#lookup button {
   background: var(--mainBG);
   color: var(--fontColor);
   border:none;
   border-radius: 0;
+  height: 25px;
+  min-width: 25px;
 }
-button.clipboard:hover {
-  background: var(--offContentBG);
+#lookup button i{
+  font-size: 30px;
+}
+#lookup button:hover {
+  background: var(--contentBG);
 }
 #glossary {
   max-height: 40%;
+  min-height:10%;
+  flex: 1
 }
 #gtranslation {
   max-height:150px;
   min-height: 50px;
+}
+#en-chapter {
+  flex:3
 }
 
 #glossary-data{
@@ -385,7 +387,7 @@ p {
   position:relative;
 }
 
-p:not(.active):hover::before{
+#lang p:not(.active):hover::before{
   content:"";
   position:absolute;
   top:0;
